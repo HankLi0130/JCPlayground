@@ -4,44 +4,54 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
+import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.ui.NavDisplay
+import app.hankdev.jc.ui.screen.TextScreen
 import app.hankdev.jc.ui.theme.JCPlaygroundTheme
 
 class MainActivity : ComponentActivity() {
+    data object AScreen
+    data class BScreen(val name: String)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             JCPlaygroundTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                val backStack = remember { mutableStateListOf<Any>(AScreen) }
+
+                NavDisplay(
+                    backStack = backStack,
+                    onBack = { backStack.removeLastOrNull() },
+                    entryProvider = { key ->
+                        when (key) {
+                            is AScreen -> {
+                                NavEntry(key) {
+                                    TextScreen(
+                                        screenLabel = "A Screen",
+                                        buttonText = "Go to B",
+                                        onClick = { backStack.add(BScreen("B screen")) }
+                                    )
+                                }
+                            }
+
+                            is BScreen -> {
+                                NavEntry(key) {
+                                    TextScreen(
+                                        screenLabel = key.name,
+                                        buttonText = "Back to A",
+                                        onClick = { backStack.removeLastOrNull() }
+                                    )
+                                }
+                            }
+
+                            else -> error("Unknown screen: $key")
+                        }
+                    }
+                )
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    JCPlaygroundTheme {
-        Greeting("Android")
     }
 }
