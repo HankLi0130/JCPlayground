@@ -13,18 +13,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.hankdev.jc.ui.Route
+import app.hankdev.jc.ui.AppRoute
 import app.hankdev.jc.ui.common.ThemePreview
 
-private data class RouteItem(val title: String, val route: Route)
+private data class RouteItem(val title: String, val appRoute: AppRoute)
 
 private val allRoutes = listOf(
-    RouteItem("Nav3", Route.Nav3)
+    RouteItem("Nav3", AppRoute.Nav3),
+    RouteItem("Snackbar", AppRoute.Snackbar)
+
 )
 
 @Composable
 fun HomeScreen(
-    onItemClick: (Route) -> Unit = {}
+    onItemClick: (AppRoute) -> Unit = {}
 ) {
     Scaffold { paddingValues ->
         LazyColumn(
@@ -38,7 +40,7 @@ fun HomeScreen(
                 key = { it.title }
             ) { item ->
                 Button(
-                    onClick = { onItemClick(item.route) },
+                    onClick = { onItemClick(item.appRoute) },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(item.title)
