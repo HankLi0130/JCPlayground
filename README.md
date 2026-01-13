@@ -1,3 +1,5 @@
 # Jetpack Compose Playground
 
-My Jetpack Compose learning journey.
+My learning journey of Jetpack Compose.
+
+See issues for every topic.
