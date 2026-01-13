@@ -30,7 +30,15 @@ fun JCPlaygroundApp() {
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
         entryProvider = entryProvider {
-            entry<AppRoute.Home> { HomeScreen() }
+            entry<AppRoute.Home> {
+                HomeScreen(onItemClick = { appRoute ->
+                    when (appRoute) {
+                        AppRoute.Home -> throw IllegalStateException("Home cannot be clicked")
+                        AppRoute.Nav3 -> backStack.add(AppRoute.Nav3)
+                        AppRoute.Snackbar -> backStack.add(AppRoute.Snackbar)
+                    }
+                })
+            }
             entry<AppRoute.Nav3> { Nav3Screen() }
             entry<AppRoute.Snackbar> { SnackbarScreen() }
         }
