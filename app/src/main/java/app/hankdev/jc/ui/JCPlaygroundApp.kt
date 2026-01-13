@@ -11,28 +11,28 @@ import app.hankdev.jc.ui.screen.snackbar.SnackbarScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed interface Route : NavKey {
+sealed interface AppRoute : NavKey {
     @Serializable
-    data object Home : Route
+    data object Home : AppRoute
 
     @Serializable
-    data object Nav3 : Route
+    data object Nav3 : AppRoute
 
     @Serializable
-    data object Snackbar : Route
+    data object Snackbar : AppRoute
 }
 
 @Composable
 fun JCPlaygroundApp() {
-    val backStack = rememberNavBackStack(Route.Home)
+    val backStack = rememberNavBackStack(AppRoute.Home)
 
     NavDisplay(
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
         entryProvider = entryProvider {
-            entry<Route.Home> { HomeScreen() }
-            entry<Route.Nav3> { Nav3Screen() }
-            entry<Route.Snackbar> { SnackbarScreen() }
+            entry<AppRoute.Home> { HomeScreen() }
+            entry<AppRoute.Nav3> { Nav3Screen() }
+            entry<AppRoute.Snackbar> { SnackbarScreen() }
         }
     )
 }
