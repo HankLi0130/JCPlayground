@@ -19,7 +19,9 @@ import app.hankdev.jc.ui.common.ThemePreview
 private data class RouteItem(val title: String, val route: Route)
 
 private val allRoutes = listOf(
-    RouteItem("Nav3", Route.Nav3)
+    RouteItem("Nav3", Route.Nav3),
+    RouteItem("Snackbar", Route.Snackbar)
+
 )
 
 @Composable

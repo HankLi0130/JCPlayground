@@ -7,6 +7,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import app.hankdev.jc.ui.screen.home.HomeScreen
 import app.hankdev.jc.ui.screen.nav3.Nav3Screen
+import app.hankdev.jc.ui.screen.snackbar.SnackbarScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -16,6 +17,9 @@ sealed interface Route : NavKey {
 
     @Serializable
     data object Nav3 : Route
+
+    @Serializable
+    data object Snackbar : Route
 }
 
 @Composable
@@ -28,6 +32,7 @@ fun JCPlaygroundApp() {
         entryProvider = entryProvider {
             entry<Route.Home> { HomeScreen() }
             entry<Route.Nav3> { Nav3Screen() }
+            entry<Route.Snackbar> { SnackbarScreen() }
         }
     )
 }
