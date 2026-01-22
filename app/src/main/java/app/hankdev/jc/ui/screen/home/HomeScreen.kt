@@ -19,6 +19,7 @@ import app.hankdev.jc.ui.common.ThemePreview
 private data class RouteItem(val title: String, val appRoute: AppRoute)
 
 private val allRoutes = listOf(
+    RouteItem("Basic", AppRoute.Basic),
     RouteItem("Nav3", AppRoute.Nav3),
     RouteItem("Snackbar", AppRoute.Snackbar)
 
