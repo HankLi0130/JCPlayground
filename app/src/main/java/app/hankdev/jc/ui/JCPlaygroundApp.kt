@@ -6,6 +6,7 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import app.hankdev.jc.ui.screen.basic.BasicScreen
+import app.hankdev.jc.ui.screen.compositionlocal.CompositionLocalScreen
 import app.hankdev.jc.ui.screen.home.HomeScreen
 import app.hankdev.jc.ui.screen.nav3.Nav3Screen
 import app.hankdev.jc.ui.screen.snackbar.SnackbarScreen
@@ -24,6 +25,9 @@ sealed interface AppRoute : NavKey {
 
     @Serializable
     data object Snackbar : AppRoute
+
+    @Serializable
+    data object CompositionLocal : AppRoute
 }
 
 @Composable
@@ -41,12 +45,14 @@ fun JCPlaygroundApp() {
                         AppRoute.Basic -> backStack.add(AppRoute.Basic)
                         AppRoute.Nav3 -> backStack.add(AppRoute.Nav3)
                         AppRoute.Snackbar -> backStack.add(AppRoute.Snackbar)
+                        AppRoute.CompositionLocal -> backStack.add(AppRoute.CompositionLocal)
                     }
                 })
             }
             entry<AppRoute.Basic> { BasicScreen() }
             entry<AppRoute.Nav3> { Nav3Screen() }
             entry<AppRoute.Snackbar> { SnackbarScreen() }
+            entry<AppRoute.CompositionLocal> { CompositionLocalScreen() }
         }
     )
 }
